@@ -10,7 +10,15 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux' && { icon }),
+    center: true,
+    frame: false,
+    ...(process.platform === 'darwin' && {
+      vibrancy: 'under-window',
+      visualEffectState: 'active',
+      titleBarStyle: 'hidden',
+      trafficLightPosition: { x: 15, y: 10 }
+    }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,

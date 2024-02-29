@@ -11,4 +11,12 @@
   body {
     @apply h-full select-none bg-transparent font-mono antialiased text-white overflow-hidden;
   }
+
+  header {
+    -webkit-app-region: drag;
+  }
+
+  button {
+    -webkit-app-region: no-drag;
+  }
 }

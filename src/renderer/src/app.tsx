@@ -3,8 +3,8 @@ import { Content, RootLayout, Sidebar } from '@/components'
 export function App() {
   return (
     <RootLayout>
-      <Sidebar className="p-2 border-4 border-red-500">sidebar</Sidebar>
-      <Content className="border-4 border-blue-500">content</Content>
+      <Sidebar className="p-2 ">sidebar</Sidebar>
+      <Content className="border-l border-l-white/20 bg-zinc-900/50">content</Content>
     </RootLayout>
   )
 }

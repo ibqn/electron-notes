@@ -5,7 +5,7 @@ export function App() {
     <>
       <DraggableTopbar />
       <RootLayout>
-        <Sidebar className="p-2 ">sidebar</Sidebar>
+        <Sidebar className="p-2">sidebar</Sidebar>
         <Content className="border-l border-l-white/20 bg-zinc-900/50">content</Content>
       </RootLayout>
     </>

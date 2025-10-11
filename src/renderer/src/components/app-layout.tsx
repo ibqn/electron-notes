@@ -5,7 +5,7 @@ type RootProps = ComponentProps<'main'>
 
 export const RootLayout = ({ className, children, ...props }: RootProps) => {
   return (
-    <main {...props} className={cn('flex flex-row h-screen', className)}>
+    <main {...props} className={cn('flex h-screen flex-row', className)}>
       {children}
     </main>
   )
@@ -15,7 +15,7 @@ type SidebarProps = ComponentProps<'aside'>
 
 export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
   return (
-    <aside {...props} className={cn('w-[250px] h-[100vh+10px] overflow-hidden mt-10', className)}>
+    <aside {...props} className={cn('mt-10 h-[100vh+10px] w-[250px] overflow-hidden', className)}>
       {children}
     </aside>
   )

@@ -40,12 +40,13 @@ export const NotePreview = ({
       {...props}
       className={cn(
         'cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75',
+        'group hover:text-white',
         isActive ? 'bg-zinc-400/75' : 'hover:bg-zinc-500/75',
         className
       )}
     >
-      <h3 className="mb-1 truncate font-bold">{title}</h3>
-      <span className="mb-2 w-full text-left text-xs font-light text-zinc-400">
+      <h3 className="truncate font-bold">{title}</h3>
+      <span className="w-full text-left text-xs font-light text-zinc-600 group-hover:text-zinc-300 dark:text-zinc-400">
         {formatNoteTime(lastEditTime)}
       </span>
     </li>

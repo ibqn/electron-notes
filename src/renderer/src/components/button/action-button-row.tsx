@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import { DeleteButton } from './delete-button'
 import { NewNoteButton } from './new-note-button'
 

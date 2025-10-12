@@ -1,4 +1,4 @@
-import { cn } from '@renderer/utils'
+import { cn } from '@/utils'
 import { forwardRef, type ComponentProps } from 'react'
 
 type RootProps = ComponentProps<'main'>

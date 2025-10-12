@@ -7,7 +7,7 @@ import {
   quotePlugin
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
-import { cn } from '@renderer/utils'
+import { cn } from '@/utils'
 
 export const MarkdownEditor = () => {
   return (

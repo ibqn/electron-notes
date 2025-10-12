@@ -1,4 +1,4 @@
-import { cn } from '@renderer/utils'
+import { cn } from '@/utils'
 import type { ComponentProps } from 'react'
 
 export type ActionButtonProps = ComponentProps<'button'>

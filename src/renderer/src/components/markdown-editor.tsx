@@ -1,4 +1,5 @@
 import {
+  type MDXEditorMethods,
   headingsPlugin,
   linkPlugin,
   listsPlugin,
@@ -8,12 +9,23 @@ import {
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
 import { cn } from '@/utils'
+import { useMarkdownEditor } from '@/hooks/use-markdown-editor'
+import { useEffect, useRef } from 'react'
 
 export const MarkdownEditor = () => {
+  const { selectedNote } = useMarkdownEditor()
+  const mdxEditorRef = useRef<MDXEditorMethods | null>(null)
+
+  useEffect(() => {
+    console.log('selectedNote changed', selectedNote)
+    mdxEditorRef.current?.setMarkdown(selectedNote?.content ?? '')
+  }, [selectedNote])
+
   return (
     <div>
       <MDXEditor
-        markdown={'# Hello World'}
+        ref={mdxEditorRef}
+        markdown={selectedNote?.content ?? ''}
         plugins={[
           headingsPlugin(),
           linkPlugin(),

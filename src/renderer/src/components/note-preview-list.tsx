@@ -2,10 +2,12 @@ import type { ComponentProps } from 'react'
 import { NotePreview } from './note-preview'
 import { useNotesList } from '@/hooks/use-notes-list'
 
-type Props = ComponentProps<'ul'>
+type Props = ComponentProps<'ul'> & {
+  onNoteSelect?: () => void
+}
 
-export const NotePreviewList = (props: Props) => {
-  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList()
+export const NotePreviewList = ({ onNoteSelect, ...props }: Props) => {
+  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onNoteSelect })
 
   if (notes.length === 0) {
     return (

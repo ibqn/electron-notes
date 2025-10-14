@@ -1,4 +1,4 @@
-import { NoteInfo } from '@shared/models'
+import type { NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
 import { mockNotes } from './mocks'
 

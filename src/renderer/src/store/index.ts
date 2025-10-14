@@ -1,19 +1,22 @@
 import type { NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
 import { mockNotes } from './mocks'
+import { uuid } from '@/utils/uuid'
 
 export const notesAtom = atom<NoteInfo[]>(mockNotes)
 
-export const selectedNoteIndexAtom = atom<number | null>(null)
+export const selectedNoteIdAtom = atom<string | null>(null)
 
 export const selectedNoteAtom = atom((get) => {
   const notes = get(notesAtom)
-  const selectedNoteIndex = get(selectedNoteIndexAtom)
-  if (selectedNoteIndex === null) {
+  const selectedNoteId = get(selectedNoteIdAtom)
+  if (selectedNoteId === null) {
     return null
   }
-  const selectedNote = notes[selectedNoteIndex]
-
+  const selectedNote = notes.find((note) => note.id === selectedNoteId)
+  if (!selectedNote) {
+    return null
+  }
   return { ...selectedNote, content: `# ${selectedNote.title}\n\nStart writing your note here...` }
 })
 
@@ -21,20 +24,20 @@ export const createEmptyNoteAtom = atom(null, (get, set) => {
   const notes = get(notesAtom)
 
   const title = `Untitled ${notes.length + 1}`
-  const newNote: NoteInfo = { title, lastEditTime: new Date().getTime() }
+  const newNote: NoteInfo = { id: uuid(), title, lastEditTime: new Date().getTime() }
   set(notesAtom, [newNote, ...notes])
-  set(selectedNoteIndexAtom, 0)
+  set(selectedNoteIdAtom, newNote.id)
 })
 
 export const deleteNoteAtom = atom(null, (get, set) => {
   const notes = get(notesAtom)
-  const selectedNoteIndex = get(selectedNoteIndexAtom)
+  const selectedNoteId = get(selectedNoteIdAtom)
 
-  if (selectedNoteIndex === null) {
+  if (selectedNoteId === null) {
     return
   }
 
-  const newNotes = notes.filter((_, index) => index !== selectedNoteIndex)
+  const newNotes = notes.filter((note) => note.id !== selectedNoteId)
   set(notesAtom, newNotes)
-  set(selectedNoteIndexAtom, null)
+  set(selectedNoteIdAtom, null)
 })

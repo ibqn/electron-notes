@@ -7,7 +7,7 @@ type Props = ComponentProps<'ul'> & {
 }
 
 export const NotePreviewList = ({ onNoteSelect, ...props }: Props) => {
-  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onNoteSelect })
+  const { notes, selectedNoteId, handleNoteSelect } = useNotesList({ onNoteSelect })
 
   if (notes.length === 0) {
     return (
@@ -19,12 +19,12 @@ export const NotePreviewList = ({ onNoteSelect, ...props }: Props) => {
 
   return (
     <ul {...props}>
-      {notes.map((note, index) => (
+      {notes.map((note) => (
         <NotePreview
-          key={note.title}
+          key={note.id}
           {...note}
-          isActive={selectedNoteIndex === index}
-          onClick={handleNoteSelect(index)}
+          isActive={selectedNoteId === note.id}
+          onClick={handleNoteSelect(note.id)}
         />
       ))}
     </ul>

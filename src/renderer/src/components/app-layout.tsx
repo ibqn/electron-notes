@@ -26,6 +26,6 @@ export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
 
 type ContentProps = ComponentProps<'div'>
 
-export const Content = ({ ref, className, ...props }: ContentProps) => {
-  return <div {...props} ref={ref} className={cn('flex-1 overflow-auto', className)} />
+export const Content = ({ className, ...props }: ContentProps) => {
+  return <div {...props} className={cn('flex-1 overflow-auto', className)} />
 }

@@ -1,5 +1,5 @@
 import { cn } from '@/utils'
-import { forwardRef, type ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 
 type RootProps = ComponentProps<'main'>
 
@@ -23,6 +23,6 @@ export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
 
 type ContentProps = ComponentProps<'div'>
 
-export const Content = forwardRef<HTMLDivElement, ContentProps>(({ className, ...props }, ref) => {
+export const Content = ({ ref, className, ...props }: ContentProps) => {
   return <div {...props} ref={ref} className={cn('flex-1 overflow-auto', className)} />
-})
+}

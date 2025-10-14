@@ -1,7 +1,7 @@
 import { selectedNoteAtom } from '@renderer/store'
 import { cn } from '@renderer/utils'
 import { useAtomValue } from 'jotai'
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 
 type Props = ComponentProps<'div'>
 

@@ -3,7 +3,7 @@ import { LuFilePenLine } from 'react-icons/lu'
 
 export const NewNoteButton = (props: ActionButtonProps) => {
   return (
-    <ActionButton>
+    <ActionButton {...props}>
       <LuFilePenLine className="size-4 text-zinc-600 group-hover:text-zinc-300 dark:text-zinc-300" />
     </ActionButton>
   )

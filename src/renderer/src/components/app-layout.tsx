@@ -15,7 +15,10 @@ type SidebarProps = ComponentProps<'aside'>
 
 export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
   return (
-    <aside {...props} className={cn('mt-10 h-[100vh+10px] w-[250px] overflow-hidden', className)}>
+    <aside
+      {...props}
+      className={cn('mt-10 h-[calc(100vh+10px)] w-[250px] overflow-hidden', className)}
+    >
       {children}
     </aside>
   )

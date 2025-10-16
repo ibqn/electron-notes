@@ -10,11 +10,9 @@ import '@mdxeditor/editor/style.css'
 import { cn } from '@/utils'
 import { useMarkdownEditor } from '@/hooks/use-markdown-editor'
 import { useEffect } from 'react'
-import { throttle } from 'lodash-es'
-import { autoSaveInterval } from '@shared/constants'
 
 export const MarkdownEditor = () => {
-  const { selectedNote, mdxEditorRef, handleAutoSaving } = useMarkdownEditor()
+  const { selectedNote, mdxEditorRef, handleAutoSaving, handleBlur } = useMarkdownEditor()
 
   useEffect(() => {
     console.log('selectedNote changed', selectedNote)
@@ -26,10 +24,8 @@ export const MarkdownEditor = () => {
       <MDXEditor
         ref={mdxEditorRef}
         markdown={selectedNote?.content ?? ''}
-        onChange={throttle(handleAutoSaving, autoSaveInterval, {
-          leading: false,
-          trailing: true
-        })}
+        onChange={handleAutoSaving}
+        onBlur={handleBlur}
         plugins={[
           headingsPlugin(),
           linkPlugin(),

@@ -1,10 +1,10 @@
 import { useSetAtom } from 'jotai'
 import { ActionButton, ActionButtonProps } from './action-button'
 import { LuFilePenLine } from 'react-icons/lu'
-import { createEmptyNoteAtom } from '@renderer/store'
+import { createEmptyNoteAtomAsync } from '@renderer/store'
 
 export const NewNoteButton = (props: ActionButtonProps) => {
-  const createEmptyNote = useSetAtom(createEmptyNoteAtom)
+  const createEmptyNote = useSetAtom(createEmptyNoteAtomAsync)
 
   const handleCreation = () => {
     createEmptyNote()

@@ -1,4 +1,4 @@
-import type { NoteInfo } from '@shared/models'
+import type { NoteContent, NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
 import { uuid } from '@/utils/uuid'
@@ -32,16 +32,38 @@ const selectedNoteAtomAsync = atom(async (get) => {
 
 export const selectedNoteAtom = unwrap(selectedNoteAtomAsync, (prev) => prev ?? null)
 
-export const createEmptyNoteAtom = atom(null, (get, set) => {
+export const saveNoteAtomAsync = atom(null, async (get, set, content: NoteContent) => {
+  const selectedNoteId = get(selectedNoteIdAtom)
+  if (selectedNoteId === null) {
+    return
+  }
+
+  const notes = get(notesAtom)
+  const selectedNote = notes.find((note) => note.id === selectedNoteId)
+  if (!selectedNote) {
+    return
+  }
+
+  await window.context.writeNote(selectedNote.title, content)
+  set(
+    notesAtom,
+    notes.map((note) =>
+      note.id === selectedNoteId ? { ...note, lastEditTime: new Date().getTime() } : note
+    )
+  )
+})
+
+export const createEmptyNoteAtomAsync = atom(null, async (get, set) => {
   const notes = get(notesAtom)
 
   const title = `Untitled ${notes.length + 1}`
   const newNote: NoteInfo = { id: uuid(), title, lastEditTime: new Date().getTime() }
+  await window.context.writeNote(title, '')
   set(notesAtom, [newNote, ...notes])
   set(selectedNoteIdAtom, newNote.id)
 })
 
-export const deleteNoteAtom = atom(null, (get, set) => {
+export const deleteNoteAtomAsync = atom(null, async (get, set) => {
   const notes = get(notesAtom)
   const selectedNoteId = get(selectedNoteIdAtom)
 
@@ -49,7 +71,14 @@ export const deleteNoteAtom = atom(null, (get, set) => {
     return
   }
 
+  const selectedNote = notes.find((note) => note.id === selectedNoteId)
+  if (!selectedNote) {
+    return
+  }
+
   const newNotes = notes.filter((note) => note.id !== selectedNoteId)
   set(notesAtom, newNotes)
   set(selectedNoteIdAtom, null)
+
+  await window.context.deleteNote(selectedNote.title)
 })

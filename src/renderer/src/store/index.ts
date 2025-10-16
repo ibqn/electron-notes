@@ -1,9 +1,16 @@
 import type { NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
-import { mockNotes } from './mocks'
+import { unwrap } from 'jotai/utils'
 import { uuid } from '@/utils/uuid'
 
-export const notesAtom = atom<NoteInfo[]>(mockNotes)
+const loadNotes = async (): Promise<NoteInfo[]> => {
+  const notes = await window.context.getNotes()
+  return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
+}
+
+export const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes())
+
+export const notesAtom = unwrap(notesAtomAsync, (prev) => prev ?? [])
 
 export const selectedNoteIdAtom = atom<string | null>(null)
 

@@ -5,6 +5,7 @@ import { homedir } from 'os'
 import { randomUUID } from 'crypto'
 import type { DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 import path from 'path'
+import { dialog } from 'electron'
 
 export const uuid = (): string => randomUUID()
 
@@ -48,8 +49,22 @@ export const writeNote: WriteNote = async (fileName, content): Promise<void> => 
   return writeFile(path.join(rootDir, `${fileName}.md`), content, { encoding: fileEncoding })
 }
 
-export const deleteNote: DeleteNote = async (fileName): Promise<void> => {
+export const deleteNote: DeleteNote = async (fileName): Promise<boolean> => {
   const rootDir = getRootDir()
 
-  return remove(path.join(rootDir, `${fileName}.md`))
+  const { response } = await dialog.showMessageBox({
+    type: 'question',
+    title: 'Delete node',
+    message: 'Are you sure that you want to delete?',
+    buttons: ['Delete', 'Cancel'],
+    defaultId: 1,
+    cancelId: 1
+  })
+
+  if (response == 1) {
+    return false
+  }
+
+  await remove(path.join(rootDir, `${fileName}.md`))
+  return true
 }

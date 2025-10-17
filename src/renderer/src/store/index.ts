@@ -76,9 +76,12 @@ export const deleteNoteAtomAsync = atom(null, async (get, set) => {
     return
   }
 
+  const confirmed = await window.context.deleteNote(selectedNote.title)
+  if (!confirmed) {
+    return
+  }
+
   const newNotes = notes.filter((note) => note.id !== selectedNoteId)
   set(notesAtom, newNotes)
   set(selectedNoteIdAtom, null)
-
-  await window.context.deleteNote(selectedNote.title)
 })

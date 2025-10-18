@@ -23,7 +23,7 @@ export const useMarkdownEditor = () => {
     autoSaveInterval,
     {
       leading: false,
-      trailing: true
+      trailing: true,
     }
   )
 

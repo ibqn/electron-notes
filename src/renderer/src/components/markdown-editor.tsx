@@ -4,7 +4,7 @@ import {
   listsPlugin,
   markdownShortcutPlugin,
   MDXEditor,
-  quotePlugin
+  quotePlugin,
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
 import { cn } from '@/utils'
@@ -31,7 +31,7 @@ export const MarkdownEditor = () => {
           linkPlugin(),
           listsPlugin(),
           quotePlugin(),
-          markdownShortcutPlugin()
+          markdownShortcutPlugin(),
         ]}
         contentEditableClassName={cn(
           'caret-yellow-500 prose dark:prose-invert min-h-full text-lg px-8 py-5 outline-none max-w-nonet',

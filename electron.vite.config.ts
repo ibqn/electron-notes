@@ -9,12 +9,12 @@ export default defineConfig({
     resolve: {
       alias: {
         '@/lib': resolve('src/main/lib'),
-        '@shared': resolve('src/shared')
-      }
-    }
+        '@shared': resolve('src/shared'),
+      },
+    },
   },
   preload: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
   },
   renderer: {
     assetsInclude: 'src/renderer/assets/**',
@@ -27,9 +27,9 @@ export default defineConfig({
         '@/store': resolve('src/renderer/src/store'),
         '@/components': resolve('src/renderer/src/components'),
         '@/mocks': resolve('src/renderer/src/mocks'),
-        '@/utils': resolve('src/renderer/src/utils')
-      }
+        '@/utils': resolve('src/renderer/src/utils'),
+      },
     },
-    plugins: [react(), tailwindcss()]
-  }
+    plugins: [react(), tailwindcss()],
+  },
 })

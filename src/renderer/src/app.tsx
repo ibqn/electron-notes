@@ -5,7 +5,7 @@ import {
   RootLayout,
   Sidebar,
   MarkdownEditor,
-  FloatingNoteTitle
+  FloatingNoteTitle,
 } from '@/components'
 import { ActionButtonRow } from '@/components/button'
 import { useRef } from 'react'

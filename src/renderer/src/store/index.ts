@@ -56,7 +56,6 @@ export const createEmptyNoteAtomAsync = atom(null, async (get, set) => {
   const notes = get(notesAtom)
 
   const newNote = await window.context.createNote()
-
   if (!newNote) {
     return
   }

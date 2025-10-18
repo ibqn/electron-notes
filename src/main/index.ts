@@ -2,8 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { deleteNote, getNotes, readNote, writeNote } from './lib'
-import type { DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
+import { createNote, deleteNote, getNotes, readNote, writeNote } from './lib'
+import type { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -19,13 +19,13 @@ function createWindow(): void {
       vibrancy: 'under-window',
       visualEffectState: 'active',
       titleBarStyle: 'hidden',
-      trafficLightPosition: { x: 15, y: 10 }
+      trafficLightPosition: { x: 15, y: 10 },
     }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
-      contextIsolation: true
-    }
+      contextIsolation: true,
+    },
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -67,6 +67,9 @@ app.whenReady().then(() => {
   ipcMain.handle('write-note', async (_event, ...args: Parameters<WriteNote>) => writeNote(...args))
   ipcMain.handle('delete-note', async (_event, ...args: Parameters<DeleteNote>) =>
     deleteNote(...args)
+  )
+  ipcMain.handle('create-note', async (_event, ...args: Parameters<CreateNote>) =>
+    createNote(...args)
   )
 
   createWindow()

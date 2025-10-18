@@ -1,4 +1,4 @@
-import type { DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
+import type { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 
 declare global {
   interface Window {
@@ -8,6 +8,7 @@ declare global {
       readNote: ReadNote
       writeNote: WriteNote
       deleteNote: DeleteNote
+      createNote: CreateNote
     }
   }
 }

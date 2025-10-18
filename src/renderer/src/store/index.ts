@@ -1,7 +1,6 @@
 import type { NoteContent, NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
-import { uuid } from '@/utils/uuid'
 
 const loadNotes = async (): Promise<NoteInfo[]> => {
   const notes = await window.context.getNotes()
@@ -56,9 +55,10 @@ export const saveNoteAtomAsync = atom(null, async (get, set, content: NoteConten
 export const createEmptyNoteAtomAsync = atom(null, async (get, set) => {
   const notes = get(notesAtom)
 
-  const title = `Untitled ${notes.length + 1}`
-  const newNote: NoteInfo = { id: uuid(), title, lastEditTime: new Date().getTime() }
-  await window.context.writeNote(title, '')
+  const newNote = await window.context.createNote()
+  if (!newNote) {
+    return
+  }
   set(notesAtom, [newNote, ...notes])
   set(selectedNoteIdAtom, newNote.id)
 })
